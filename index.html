@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect Extend Challenge 학습지</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        @page {
+            size: A4 landscape;
+            margin: 8mm;
+        }
+        
+        body {
+            font-family: 'Noto Sans KR', Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .worksheet {
+            width: 297mm;
+            height: 210mm;
+            background-color: white;
+            margin: 0 auto;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            position: relative;
+            padding: 4mm;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .header {
+            width: 100%;
+            height: 20mm;
+            background: linear-gradient(90deg, #06b6d4 0%, #0891b2 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 6mm;
+            flex-shrink: 0;
+        }
+        
+        .header h1 {
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            margin: 0;
+        }
+        
+        .student-info {
+            width: 220mm;
+            height: 12mm;
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 3mm;
+            margin: 0 auto 6mm auto;
+            display: flex;
+            align-items: center;
+            gap: 8mm;
+            flex-shrink: 0;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: center;
+            font-size: 13px;
+            color: #333;
+            flex: 1;
+        }
+        
+        .info-label {
+            margin-right: 3mm;
+            font-weight: 600;
+            color: #555;
+            font-size: 12px;
+            min-width: 12mm;
+            flex-shrink: 0;
+        }
+        
+        .info-input {
+            flex-grow: 1;
+            min-width: 25mm;
+            height: 6mm;
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+            transition: border-color 0.3s ease;
+            padding: 0 2mm;
+            font-family: 'Noto Sans KR', Arial, sans-serif;
+            font-size: 13px;
+        }
+        
+        .info-input:focus {
+            outline: none;
+            border-color: #06b6d4;
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.1), 0 0 0 2px rgba(6,182,212,0.2);
+        }
+        
+        .sections {
+            display: flex;
+            gap: 4mm;
+            flex-grow: 1;
+            margin-bottom: 3mm;
+        }
+        
+        .section {
+            flex: 1;
+            border-radius: 12px;
+            overflow: hidden;
+            background: white;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .section.connect { border: 4px solid #3b82f6; }
+        .section.extend { border: 4px solid #8b5cf6; }
+        .section.challenge { border: 4px solid #ef4444; }
+        
+        .section-header {
+            height: 22mm;
+            padding: 3mm;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+        
+        .section.connect .section-header { background-color: #dbeafe; }
+        .section.extend .section-header { background-color: #e9d5ff; }
+        .section.challenge .section-header { background-color: #fee2e2; }
+        
+        .section-emoji { font-size: 28px; flex-shrink: 0; }
+        
+        .section-title-container {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            min-width: 0;
+        }
+        
+        .section-title { font-size: 26px; font-weight: bold; margin-bottom: 2px; }
+        .section-subtitle { font-size: 11px; font-style: italic; color: #666; margin-bottom: 1px; }
+        .section-korean { font-size: 13px; color: #333; }
+        
+        .section.connect .section-title { color: #1d4ed8; }
+        .section.extend .section-title { color: #7c3aed; }
+        .section.challenge .section-title { color: #dc2626; }
+        
+        .section-content {
+            flex-grow: 1;
+            padding: 1mm;
+            background-color: #fafafa;
+            border-top: 1px solid #ddd;
+            position: relative;
+        }
+        
+        .writing-area {
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+            border: none;
+            border-radius: 4px;
+            padding: 3mm;
+            font-family: 'Noto Sans KR', Arial, sans-serif;
+            font-size: 14px;
+            resize: none;
+        }
+        .writing-area:focus {
+            outline: none;
+        }
+        
+        .footer {
+            height: 32mm;
+            margin-top: 0;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .summary-section {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 2mm;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .summary-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 2mm;
+            padding-left: 2mm;
+        }
+        .summary-area {
+             flex-grow: 1;
+             border: 1px solid #ddd;
+             border-radius: 4px;
+             padding: 2mm;
+             background: white;
+             font-family: 'Noto Sans KR', Arial, sans-serif;
+             font-size: 14px;
+             resize: none;
+        }
+        .summary-area:focus {
+            outline: none;
+            border-color: #06b6d4;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+        .modal-overlay.visible .modal-content {
+            transform: scale(1);
+        }
+        .modal-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        .modal-body {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 25px;
+        }
+        .modal-body strong { color: #06b6d4; }
+        .modal-body ul { list-style: none; padding-left: 0; }
+        .modal-body li { margin-bottom: 8px; }
+        .modal-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        .modal-button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .modal-button.confirm {
+            background-color: #06b6d4;
+            color: white;
+        }
+        .modal-button.confirm:hover { background-color: #0891b2; }
+        .modal-button.cancel {
+            background-color: #e0e0e0;
+            color: #333;
+        }
+        .modal-button.cancel:hover { background-color: #bdbdbd; }
+        
+        @media print {
+            @page {
+                size: A4 landscape;
+                margin: 8mm;
+            }
+            body {
+                background-color: white;
+                padding: 0;
+                margin: 0;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .worksheet {
+                box-shadow: none;
+                margin: 0;
+                width: 100%;
+                height: 100%;
+                padding: 3mm;
+                page-break-inside: avoid;
+            }
+            .no-print, .modal-overlay {
+                display: none !important;
+            }
+            .section-title { font-size: 22px; }
+            .section-subtitle { font-size: 10px; }
+            .section-korean { font-size: 11px; }
+            .writing-area { 
+                font-size: 12px; 
+                line-height: 1.4;
+                color: #000 !important;
+            }
+            .summary-area { 
+                font-size: 12px; 
+                line-height: 1.4;
+                color: #000 !important;
+            }
+            .info-label { font-size: 11px; }
+            .summary-title { font-size: 12px; }
+            .header h1 { font-size: 24px; }
+            .section-header {
+                background-color: #f5f5f5 !important;
+            }
+            .section-title {
+                color: #000 !important;
+            }
+        }
+        
+        @media screen {
+            body {
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+            .print-controls {
+                margin: 20px 0;
+                text-align: center;
+            }
+            .print-button {
+                background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+                color: white;
+                border: none;
+                padding: 12px 24px;
+                border-radius: 8px;
+                font-size: 16px;
+                font-weight: bold;
+                cursor: pointer;
+                box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
+                transition: all 0.3s ease;
+                font-family: 'Noto Sans KR', Arial, sans-serif;
+                margin: 0 10px;
+            }
+            .print-button:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 16px rgba(6, 182, 212, 0.4);
+            }
+            .print-button:active { transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="print-controls no-print">
+        <button class="print-button" onclick="showPrintModal()">🖨️ 인쇄하기 / PDF 저장</button>
+    </div>
+
+    <div class="worksheet">
+        <div class="header">
+            <h1>Connect Extend Challenge</h1>
+        </div>
+        
+        <div class="student-info">
+            <div class="info-item">
+                <label class="info-label">학반:</label>
+                <input type="text" class="info-input">
+            </div>
+            <div class="info-item">
+                <label class="info-label">번호:</label>
+                <input type="text" class="info-input">
+            </div>
+            <div class="info-item">
+                <label class="info-label">이름:</label>
+                <input type="text" class="info-input">
+            </div>
+        </div>
+        
+        <div class="sections">
+            <div class="section connect">
+                <div class="section-header">
+                    <div class="section-emoji">🔗</div>
+                    <div class="section-title-container">
+                        <div class="section-title">CONNECT</div>
+                        <div class="section-subtitle">How does this connect to what you already know?</div>
+                        <div class="section-korean">이미 알고 있는 것과 어떻게 연결되나요?</div>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <textarea class="writing-area" placeholder="이전에 배웠던 내용이나 경험과 연결되는 점을 적어보세요..."></textarea>
+                </div>
+            </div>
+            
+            <div class="section extend">
+                <div class="section-header">
+                    <div class="section-emoji">🚀</div>
+                    <div class="section-title-container">
+                        <div class="section-title">EXTEND</div>
+                        <div class="section-subtitle">What new ideas does this give you?</div>
+                        <div class="section-korean">어떤 새로운 생각이 떠오르나요?</div>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <textarea class="writing-area" placeholder="새롭게 확장된 생각이나 아이디어를 적어보세요..."></textarea>
+                </div>
+            </div>
+            
+            <div class="section challenge">
+                <div class="section-header">
+                    <div class="section-emoji">⚡</div>
+                    <div class="section-title-container">
+                        <div class="section-title">CHALLENGE</div>
+                        <div class="section-subtitle">What questions or puzzles does this raise?</div>
+                        <div class="section-korean">어떤 의문이나 도전 과제가 생기나요?</div>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <textarea class="writing-area" placeholder="도전해보고 싶은 문제나 더 깊이 탐구하고 싶은 점을 적어보세요..."></textarea>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div class="summary-section">
+                <div class="summary-title">📝 학습 성찰 및 정리</div>
+                <textarea class="summary-area" placeholder="Connect, Extend, Challenge 활동을 통해 느낀 점이나 앞으로의 학습 계획을 정리해 보세요."></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="printModal">
+        <div class="modal-content">
+            <div class="modal-title">🖨️ 인쇄 및 PDF 저장 설정 안내</div>
+            <div class="modal-body">
+                <p>최상의 결과물을 위해, 인쇄 대화상자에서 아래 설정을 확인해주세요.</p>
+                <ul>
+                    <li><strong>대상:</strong> 실제 프린터 또는 'PDF로 저장' 선택</li>
+                    <li><strong>레이아웃:</strong> 🎨 <strong>가로</strong> (Landscape)</li>
+                    <li><strong>여백:</strong> 📄 <strong>최소</strong> 또는 '사용자 정의(8mm)'</li>
+                    <li><strong>옵션 더보기 → 머리글과 바닥글:</strong> 🚫 <strong>체크 해제</strong></li>
+                    <li><strong>옵션 더보기 → 배경 그래픽:</strong> ✅ <strong>체크</strong></li>
+                </ul>
+                <p>위 설정이 완료되었다면 '인쇄하기' 버튼을 눌러주세요.</p>
+            </div>
+            <div class="modal-buttons">
+                <button class="modal-button cancel" onclick="hidePrintModal()">취소</button>
+                <button class="modal-button confirm" onclick="executePrint()">인쇄하기</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const printModal = document.getElementById('printModal');
+
+        function showPrintModal() {
+            printModal.classList.add('visible');
+        }
+
+        function hidePrintModal() {
+            printModal.classList.remove('visible');
+        }
+
+        function executePrint() {
+            hidePrintModal();
+            setTimeout(() => {
+                window.print();
+            }, 300);
+        }
+
+        printModal.addEventListener('click', function(event) {
+            if (event.target === printModal) {
+                hidePrintModal();
+            }
+        });
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                hidePrintModal();
+            }
+        });
+    </script>
+</body>
+</html>
